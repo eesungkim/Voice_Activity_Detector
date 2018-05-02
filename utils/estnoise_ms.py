@@ -4,10 +4,6 @@ Created on Tue May  1 20:43:28 2018
 @author: eesungkim
 """
 import numpy as np
-import scipy.io.wavfile as wav
-import numpy.testing
-import scipy.special as sp
-import matplotlib.pyplot as plt
 
 def stft(x, n_fft=512, win_length=400, hop_length=160, window='hamming'):   
     if window == 'hanning':
