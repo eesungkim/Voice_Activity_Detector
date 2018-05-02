@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Tue May  1 20:43:28 2018
-
 @author: eesungkim
 """
 import numpy as np
@@ -157,6 +156,26 @@ def estnoisem(pSpectrum,hop_length):
     return x
 
 def mhvals(*args):
+    """
+    This is python implementation of [1],[2], and [3]. 
+    
+    Refs:
+       [1] Rainer Martin.
+           Noise power spectral density estimation based on optimal smoothing and minimum statistics.
+           IEEE Trans. Speech and Audio Processing, 9(5):504-512, July 2001.
+       [2] Rainer Martin.
+           Bias compensation methods for minimum statistics noise power spectral density estimation
+           Signal Processing, 2006, 86, 1215-1229
+       [3] Dirk Mauler and Rainer Martin
+           Noise power spectral density estimation on highly correlated data
+           Proc IWAENC, 2006
+    
+         Copyright (C) Mike Brookes 2008
+         Version: $Id: estnoisem.m 1718 2012-03-31 16:40:41Z dmb $
+    
+      VOICEBOX is a MATLAB toolbox for speech processing.
+      Home page: http://www.ee.ic.ac.uk/hp/staff/dmb/voicebox/voicebox.html
+    """
     nargin = len(args)
 
     dmh=np.array([
@@ -207,7 +226,26 @@ def mhvals(*args):
 
 
 def max_complex(a,b):
-    # a,b are vectors
+    """
+    This is python implementation of [1],[2], and [3]. 
+    
+    Refs:
+       [1] Rainer Martin.
+           Noise power spectral density estimation based on optimal smoothing and minimum statistics.
+           IEEE Trans. Speech and Audio Processing, 9(5):504-512, July 2001.
+       [2] Rainer Martin.
+           Bias compensation methods for minimum statistics noise power spectral density estimation
+           Signal Processing, 2006, 86, 1215-1229
+       [3] Dirk Mauler and Rainer Martin
+           Noise power spectral density estimation on highly correlated data
+           Proc IWAENC, 2006
+    
+         Copyright (C) Mike Brookes 2008
+         Version: $Id: estnoisem.m 1718 2012-03-31 16:40:41Z dmb $
+    
+      VOICEBOX is a MATLAB toolbox for speech processing.
+      Home page: http://www.ee.ic.ac.uk/hp/staff/dmb/voicebox/voicebox.html
+    """
     if len(a)==1 and len(b)>1:
         a=np.tile(a,np.shape(b))
     if len(b)==1 and len(a)>1:
@@ -233,7 +271,26 @@ def max_complex(a,b):
     return cc
 
 def min_complex(a,b):
-    # a,b are vectors
+    """
+    This is python implementation of [1],[2], and [3]. 
+    
+    Refs:
+       [1] Rainer Martin.
+           Noise power spectral density estimation based on optimal smoothing and minimum statistics.
+           IEEE Trans. Speech and Audio Processing, 9(5):504-512, July 2001.
+       [2] Rainer Martin.
+           Bias compensation methods for minimum statistics noise power spectral density estimation
+           Signal Processing, 2006, 86, 1215-1229
+       [3] Dirk Mauler and Rainer Martin
+           Noise power spectral density estimation on highly correlated data
+           Proc IWAENC, 2006
+    
+         Copyright (C) Mike Brookes 2008
+         Version: $Id: estnoisem.m 1718 2012-03-31 16:40:41Z dmb $
+    
+      VOICEBOX is a MATLAB toolbox for speech processing.
+      Home page: http://www.ee.ic.ac.uk/hp/staff/dmb/voicebox/voicebox.html
+    """
     if len(a)==1 and len(b)>1:
         a=np.tile(a,np.shape(b))
     if len(b)==1 and len(a)>1:
@@ -260,7 +317,26 @@ def min_complex(a,b):
     return cc
 
 def min_complex_mat(a):
-    # minimum of each column
+    """
+    This is python implementation of [1],[2], and [3]. 
+    
+    Refs:
+       [1] Rainer Martin.
+           Noise power spectral density estimation based on optimal smoothing and minimum statistics.
+           IEEE Trans. Speech and Audio Processing, 9(5):504-512, July 2001.
+       [2] Rainer Martin.
+           Bias compensation methods for minimum statistics noise power spectral density estimation
+           Signal Processing, 2006, 86, 1215-1229
+       [3] Dirk Mauler and Rainer Martin
+           Noise power spectral density estimation on highly correlated data
+           Proc IWAENC, 2006
+    
+         Copyright (C) Mike Brookes 2008
+         Version: $Id: estnoisem.m 1718 2012-03-31 16:40:41Z dmb $
+    
+      VOICEBOX is a MATLAB toolbox for speech processing.
+      Home page: http://www.ee.ic.ac.uk/hp/staff/dmb/voicebox/voicebox.html
+    """
     s=np.shape(a)
     m = np.array(np.zeros(s[1]) )
     for i in range(0,s[1]):

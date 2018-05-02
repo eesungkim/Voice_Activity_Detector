@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 Created on Tue May  1 20:43:28 2018
-
 @author: eesungkim
 """
-
 import numpy as np
 import scipy.io.wavfile as wav
 import numpy.testing
@@ -16,22 +14,15 @@ def VAD(signal, sr, nFFT=512, win_length=0.025, hop_length=0.01):
     """Voice Activity Detector
     Parameters
     ----------
-    signal     : audio time series
-
-    sr    : sampling rate of `signal`
-
-    nFFT     : length of the FFT window
-
-    n_mfcc: int > 0 [scalar]
-        number of MFCCs to return
-
-    win_length : window size in sec
-
-    hop_length : hop size in sec
+    signal      : audio time series
+    sr    		: sampling rate of `signal`
+    nFFT     	: length of the FFT window
+    win_length 	: window size in sec
+    hop_length 	: hop size in sec
 
     Returns
     -------
-    probRatio     : frame-based voice activity probability sequence
+    probRatio   : frame-based voice activity probability sequence
     """
     signal=signal.astype('float')
 
