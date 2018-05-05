@@ -3,13 +3,14 @@
 Created on Tue May  1 20:43:28 2018
 @author: eesungkim
 """
+import os
 import numpy as np
 import scipy.io.wavfile as wav
-import scipy.special as sp
 import matplotlib.pyplot as plt
 from utils.estnoise_ms import * 
+import math
 
-def VAD(signal, sr, nFFT=512, win_length=0.025, hop_length=0.01):
+def VAD(signal, sr, nFFT=512, win_length=0.025, hop_length=0.01, theshold=0.7):
     """Voice Activity Detector
     Parameters
     ----------
@@ -66,29 +67,29 @@ def VAD(signal, sr, nFFT=512, win_length=0.025, hop_length=0.01):
         smoothed_a_priori_SNR = smoothFactorDD * previousGainedaPosSNR + (1-smoothFactorDD) * oper
         
         #V for MMSE estimate ([2](8)) 
-        V=0.5*smoothed_a_priori_SNR*aPosterioriSNR_frame/(1+smoothed_a_priori_SNR)            
+        V=0.1*smoothed_a_priori_SNR*aPosterioriSNR_frame/(1+smoothed_a_priori_SNR)            
         
         #geometric mean of log likelihood ratios for individual frequency band  [1](4)
         logLRforFreqBins=2*V-np.log(smoothed_a_priori_SNR+1)              
-        #logLRforFreqBins=np.exp(smoothed_a_priori_SNR*aPosterioriSNR_frame/(1+smoothed_a_priori_SNR))/(1+smoothed_a_priori_SNR)
+        # logLRforFreqBins=np.exp(smoothed_a_priori_SNR*aPosterioriSNR_frame/(1+smoothed_a_priori_SNR))/(1+smoothed_a_priori_SNR)
         gMeanLogLRT=np.mean(logLRforFreqBins)       
         logGamma_frame=np.log(a10/a01) + gMeanLogLRT + np.log(b01+b10/( a10+a00*np.exp(-logGamma_frame) ) )
         probRatio[i]=1/(1+np.exp(-logGamma_frame))
         
-        #Calculate Gain function which results from the MMSE [2](7). 
-        gainFunc=(0.277+2*V)/aPosterioriSNR_frame          
-        if any(V<0.5):
-            VV=V[V<0.5]
-            gainFunc[V<0.5]=np.sqrt(2*np.pi)*np.sqrt(VV)*((0.5+VV)*sp.iv(0,VV)+VV*sp.iv(1,VV)) / (aPosterioriSNR_frame[V<0.5]*np.exp(VV)) # [2](7)
-        previousGainedaPosSNR = (gainFunc**2) * aPosterioriSNR_frame
+        #Calculate Gain function which results from the MMSE [2](7).
+        gain = (math.gamma(1.5) * np.sqrt(V)) / aPosterioriSNR_frame * np.exp(-1 * V / 2) * ((1 + V) * bessel(0, V / 2) + V * bessel(1, V / 2))
+    
+        previousGainedaPosSNR = (gain**2) * aPosterioriSNR_frame
+        probRatio[probRatio>theshold]=1
+        probRatio[probRatio<theshold]=0
 
     return probRatio
 
 if __name__ == '__main__':
-    path='C:/Users/eesungkim/FAJW0_SX93_2.wav';
-    (sr, signal) = wav.read(path)
+    path_wav = os.path.join(os.getcwd() , "datasets/SI1265_FJWB0_2.wav" )
+    (sr, signal) = wav.read(path_wav)
 
-    vad=VAD(signal, sr, nFFT=512, win_length=0.025, hop_length=0.01)
+    vad=VAD(signal, sr, nFFT=512, win_length=0.025, hop_length=0.01, theshold=0.99)
           
     plt.subplot(2, 1, 1)
     plt.plot(signal)

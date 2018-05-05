@@ -4,6 +4,10 @@ Created on Tue May  1 20:43:28 2018
 @author: eesungkim
 """
 import numpy as np
+from scipy.special import jv
+
+def bessel(v, X):
+    return ((1j**(-v))*jv(v,1j*X)).real
 
 def stft(x, n_fft=512, win_length=400, hop_length=160, window='hamming'):   
     if window == 'hanning':
