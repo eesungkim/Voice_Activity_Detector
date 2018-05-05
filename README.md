@@ -1,11 +1,15 @@
 # A statistical model-based Voice Activity Detector
 
-A voice activity detector applied a statistical model has been made in [2], where the decision rule is derived from the likelihood ratio test (LRT) by estimating unknown parameters using the decision-directed method. Hang-over scheme based on the hidden Markov model (HMM) are applied for smoothing. This implementation is largely based on and adapted from [3].
+A voice activity detector applied a statistical model has been made in [2], where the decision rule is derived from the likelihood ratio test (LRT) by estimating unknown parameters using the decision-directed method. Hang-over scheme based on the hidden Markov model (HMM) are applied for smoothing.
 
 ## Run the demo
 ```bash
 python vad.py
 ```
+
+## Results
+<img src = 'datasets/Figure.png'>
+
 
 ## References
 * [1] [J. Sohn, N. S. Kim, and W. Sung. "A statistical model-based voice activity detection," IEEE Signal Processing Letters, Vol. 6, issue 1, pp. 1-3, Jan. 1999.](https://wiki.inf.ed.ac.uk/twiki/pub/CSTR/ListenSemester1_2010_11/sohn_SPL99_statistical_model-based_VAD.pdf)
