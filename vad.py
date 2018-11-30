@@ -9,7 +9,7 @@ import scipy.io.wavfile as wav
 import matplotlib.pyplot as plt
 from utils.estnoise_ms import * 
 import math
-
+ 
 def VAD(signal, sr, nFFT=512, win_length=0.025, hop_length=0.01, theshold=0.7):
     """Voice Activity Detector
     Parameters
